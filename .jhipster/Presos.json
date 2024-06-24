@@ -1,0 +1,46 @@
+{
+  "annotations": {
+    "changelogDate": "20240509204903"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellido",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "edad",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dni",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "enfermedades",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Presos",
+  "relationships": [
+    {
+      "otherEntityName": "expediente",
+      "otherEntityRelationshipName": "presos",
+      "relationshipName": "expediente",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "celda",
+      "otherEntityRelationshipName": "presos",
+      "relationshipName": "celda",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

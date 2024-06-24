@@ -1,0 +1,17 @@
+<div class="filter">
+  <label for="filtroSelect" class="label">Resolución</label>
+
+  <select
+    name="Resolucion"
+    id="Resolucion"
+    class="filtroSelect"
+    style="width: 300px"
+    placeholder="Resoluciones"
+    [(ngModel)]="selectedResolution"
+    (ngModelChange)="onResolutionChange()"
+  >
+    <option value="0" disabled>Resolucion</option>
+    <option [ngValue]="null">Todos</option>
+    <option [ngValue]="item" *ngFor="let item of resolution" class="optionSelect">{{ item }}</option>
+  </select>
+</div>

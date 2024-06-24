@@ -1,0 +1,32 @@
+{
+  "annotations": {
+    "changelogDate": "20240509204902"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "delito",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fecha",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "resolucion",
+      "fieldType": "Resolucion",
+      "fieldValues": "PendienteJuicio,Culpable,Inocente"
+    }
+  ],
+  "name": "Expediente",
+  "relationships": [
+    {
+      "otherEntityName": "presos",
+      "otherEntityRelationshipName": "expediente",
+      "relationshipName": "presos",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

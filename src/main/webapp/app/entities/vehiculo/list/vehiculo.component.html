@@ -1,0 +1,127 @@
+<div>
+  <h2 id="page-heading" data-cy="VehiculoHeading">
+    <span jhiTranslate="policia360App.vehiculo.home.title">Vehiculos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <!-- <span jhiTranslate="policia360App.vehiculo.home.refreshListLabel">Refresh list</span> -->
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-vehiculo"
+        [routerLink]="['/vehiculo/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="policia360App.vehiculo.home.createLabel">Create a new Vehiculo</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (vehiculos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="policia360App.vehiculo.home.notFound">No Vehiculos found</span>
+    </div>
+  }
+
+  @if (vehiculos && vehiculos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="identificador">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.vehiculo.identificador">Identificador</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="tipovehiculo">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.vehiculo.tipovehiculo">Tipovehiculo</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="disponibilidad">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.vehiculo.disponibilidad">Disponibilidad</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="trabajadores.id">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.vehiculo.trabajadores">Trabajadores</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (vehiculo of vehiculos; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/vehiculo', vehiculo.id, 'view']">{{ vehiculo.id }}</a>
+              </td>
+              <td>{{ vehiculo.identificador }}</td>
+              <td [jhiTranslate]="'policia360App.TipoVehiculo.' + (vehiculo.tipovehiculo ?? 'null')">
+                {{
+                  {
+                    null: '',
+                    AUTOBUS: 'AUTOBUS',
+                    COCHEPATRULLA: 'COCHEPATRULLA',
+                    FURGONCELULAR: 'FURGONCELULAR',
+                    MOTOCICLETA: 'MOTOCICLETA',
+                    UNIDADVIGILANCIA: 'UNIDADVIGILANCIA'
+                  }[vehiculo.tipovehiculo ?? 'null']
+                }}
+              </td>
+              <td>{{ vehiculo.disponibilidad }}</td>
+              <td>
+                @for (trabajadores of vehiculo.trabajadores; track $index; let last = $last) {
+                  <span>
+                    <a class="form-control-static" [routerLink]="['/trabajadores', trabajadores.id, 'view']">{{ trabajadores.id }}</a
+                    >{{ last ? '' : ', ' }}
+                  </span>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <!-- <a [routerLink]="['/vehiculo', vehiculo.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a> -->
+
+                  <a [routerLink]="['/vehiculo', vehiculo.id, 'edit']" class="btn btn-edit btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span> -->
+                  </a>
+
+                  <button type="submit" (click)="delete(vehiculo)" class="btn btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="trash-can"></fa-icon>
+                    <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span> -->
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

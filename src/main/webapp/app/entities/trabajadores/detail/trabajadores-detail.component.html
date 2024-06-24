@@ -1,0 +1,69 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (trabajadores()) {
+      <div>
+        <h2 data-cy="trabajadoresDetailsHeading"><span jhiTranslate="policia360App.trabajadores.detail.title">Trabajadores</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ trabajadores()!.id }}</span>
+          </dd>
+          <dt><span>UserId</span></dt>
+          <dd>
+            <span>{{ trabajadores()!.user?.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.trabajadores.dni">Dni</span></dt>
+          <dd>
+            <span>{{ trabajadores()!.dni }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.trabajadores.puesto">Puesto</span></dt>
+          <dd>
+            <span [jhiTranslate]="'policia360App.Puesto.' + (trabajadores()!.puesto ?? 'null')">{{
+              { null: '', COMISARIO: 'COMISARIO', INSPECTOR: 'INSPECTOR', POLICIA: 'POLICIA' }[trabajadores()!.puesto ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.trabajadores.turno">Turno</span></dt>
+          <dd>
+            <span [jhiTranslate]="'policia360App.Turno.' + (trabajadores()!.turno ?? 'null')">{{
+              { null: '', MANANA: 'MANANA', TARDE: 'TARDE', NOCHE: 'NOCHE' }[trabajadores()!.turno ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.trabajadores.antiguedad">Antiguedad</span></dt>
+          <dd>
+            <span>{{ trabajadores()!.antiguedad | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.trabajadores.estado">Estado</span></dt>
+          <dd>
+            <span [jhiTranslate]="'policia360App.Estado.' + (trabajadores()!.estado ?? 'null')">{{
+              { null: '', ACTIVO: 'ACTIVO', NOACTIVO: 'NOACTIVO' }[trabajadores()!.estado ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.trabajadores.vehiculo">Vehiculo</span></dt>
+          <dd>
+            @for (vehiculo of trabajadores()!.vehiculos; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/vehiculo', vehiculo.id, 'view']">{{ vehiculo?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/trabajadores', trabajadores()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

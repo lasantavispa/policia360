@@ -1,0 +1,31 @@
+{
+  "policia360App": {
+    "presos": {
+      "home": {
+        "title": "Presos",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Presos",
+        "createOrEditLabel": "Crear o editar Presos",
+        "notFound": "Ningún Presos encontrado"
+      },
+      "created": "Un nuevo Presos ha sido creado con el identificador {{ param }}",
+      "updated": "Un Presos ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Presos ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Presos {{ id }}?"
+      },
+      "detail": {
+        "title": "Presos"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "apellido": "Apellido",
+      "edad": "Fecha de nacimiento",
+      "age": "Edad",
+      "dni": "Número de documento",
+      "enfermedades": "Enfermedades",
+      "expediente": "Expediente",
+      "celda": "Celda"
+    }
+  }
+}

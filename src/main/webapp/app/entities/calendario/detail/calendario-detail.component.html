@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (calendario()) {
+      <div>
+        <h2 data-cy="calendarioDetailsHeading"><span jhiTranslate="policia360App.calendario.detail.title">Calendario</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ calendario()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.calendario.fechaInicio">Fecha Inicio</span></dt>
+          <dd>
+            <span>{{ calendario()!.fechaInicio | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.calendario.fechaFin">Fecha Fin</span></dt>
+          <dd>
+            <span>{{ calendario()!.fechaFin | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.calendario.concepto">Concepto</span></dt>
+          <dd>
+            <span>{{ calendario()!.concepto }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.calendario.trabajadores">Trabajadores</span></dt>
+          <dd>
+            @if (calendario()!.trabajadores) {
+              <div>
+                <a [routerLink]="['/trabajadores', calendario()!.trabajadores?.id, 'view']">{{ calendario()!.trabajadores?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/calendario', calendario()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

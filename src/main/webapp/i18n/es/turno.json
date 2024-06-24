@@ -1,0 +1,10 @@
+{
+  "policia360App": {
+    "Turno": {
+      "null": "",
+      "MANANA": "MAÑANA",
+      "TARDE": "TARDE",
+      "NOCHE": "NOCHE"
+    }
+  }
+}

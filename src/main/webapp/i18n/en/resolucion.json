@@ -1,0 +1,10 @@
+{
+  "policia360App": {
+    "Resolucion": {
+      "null": "",
+      "PendienteJuicio": "Pending Trial",
+      "Culpable": "Guilty",
+      "Inocente": "Inocent"
+    }
+  }
+}

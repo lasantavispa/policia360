@@ -1,0 +1,9 @@
+{
+  "policia360App": {
+    "Estado": {
+      "null": "",
+      "ACTIVO": "ACTIVE",
+      "NOACTIVO": "NO ACTIVE"
+    }
+  }
+}

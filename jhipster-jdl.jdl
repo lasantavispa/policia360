@@ -1,0 +1,92 @@
+relationship OneToOne{
+Presos to Expediente
+}
+
+relationship OneToMany{
+Celda to Presos
+Trabajadores to Calendario
+}
+
+relationship ManyToMany{
+Trabajadores to Vehiculo
+
+}
+
+enum Puesto {
+COMISARIO,
+INSPECTOR,
+POLICIA
+}
+
+enum Turno {
+MANANA,
+TARDE,
+NOCHE
+}
+
+enum NumeroCamas{
+UNO,
+DOS,
+TRES,
+CUATRO
+}
+
+enum Resolucion{
+PendienteJuicio,
+Culpable,
+Inocente
+}
+
+enum Estado{
+ACTIVO,
+NOACTIVO
+}
+
+entity Calendario {
+fechaInicio LocalDate
+fechaFin LocalDate
+concepto String
+}
+
+entity Trabajadores {
+dni String
+puesto Puesto
+turno Turno
+antiguedad LocalDate
+estado Estado
+}
+
+entity Presos {
+nombre String
+apellido String
+edad LocalDate
+dni String
+enfermedades String
+}
+
+entity Celda {
+numeroCamas NumeroCamas
+disponibilidad Boolean
+}
+
+enum TipoVehiculo {
+AUTOBUS,
+COCHEPATRULLA,
+FURGONCELULAR,
+MOTOCICLETA,
+UNIDADVIGILANCIA
+}
+
+entity Vehiculo {
+identificador String
+tipovehiculo TipoVehiculo
+disponibilidad Boolean
+}
+
+entity Expediente {
+delito String
+fecha LocalDate
+resolucion Resolucion
+}
+
+

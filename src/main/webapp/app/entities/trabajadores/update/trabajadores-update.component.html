@@ -1,0 +1,125 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-trabajadores-heading"
+        data-cy="TrabajadoresCreateUpdateHeading"
+        jhiTranslate="policia360App.trabajadores.home.createOrEditLabel"
+      >
+        Create or edit a Trabajadores
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="policia360App.trabajadores.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label for="field_user" jhiTranslate="policia360App.trabajadores.user">UserId</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            @for (user of usersSharedCollection; track $index) {
+              <option [ngValue]="user">{{ user.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dni" jhiTranslate="policia360App.trabajadores.dni">Dni</label>
+          <input type="text" class="form-control" name="dni" id="field_dni" data-cy="dni" formControlName="dni" required />
+          <div *ngIf="editForm.get('dni')?.errors && (editForm.get('dni')?.dirty || editForm.get('dni')?.touched)">
+            <small class="text-danger" *ngIf="editForm.get('dni')?.errors?.required"> El DNI es obligatorio. </small>
+            <small class="text-danger" *ngIf="editForm.get('dni')?.errors?.pattern">
+              El formato del DNI no es válido. Debe ser 8 dígitos seguidos de una letra mayúscula.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_puesto" jhiTranslate="policia360App.trabajadores.puesto">Puesto</label>
+          <select class="form-control" name="puesto" formControlName="puesto" id="field_puesto" data-cy="puesto" required>
+            <option [ngValue]="null">{{ 'policia360App.Puesto.null' | translate }}</option>
+            @for (puesto of puestoValues; track $index) {
+              <option [value]="puesto">{{ 'policia360App.Puesto.' + puesto | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_turno" jhiTranslate="policia360App.trabajadores.turno">Turno</label>
+          <select class="form-control" name="turno" formControlName="turno" id="field_turno" data-cy="turno" required>
+            <option [ngValue]="null">{{ 'policia360App.Turno.null' | translate }}</option>
+            @for (turno of turnoValues; track $index) {
+              <option [value]="turno">{{ 'policia360App.Turno.' + turno | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_antiguedad" jhiTranslate="policia360App.trabajadores.antiguedad">Antiguedad</label>
+          <div class="input-group">
+            <input
+              id="field_antiguedad"
+              data-cy="antiguedad"
+              type="text"
+              class="form-control"
+              name="antiguedad"
+              ngbDatepicker
+              #antiguedadDp="ngbDatepicker"
+              formControlName="antiguedad"
+              required
+            />
+            <button type="button" class="btn btn-secondary" (click)="antiguedadDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_estado" jhiTranslate="policia360App.trabajadores.estado">Estado</label>
+          <select class="form-control" name="estado" formControlName="estado" id="field_estado" data-cy="estado" required>
+            <option [ngValue]="null">{{ 'policia360App.Estado.null' | translate }}</option>
+            @for (estado of estadoValues; track $index) {
+              <option [value]="estado">{{ 'policia360App.Estado.' + estado | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_vehiculos" jhiTranslate="policia360App.trabajadores.vehiculo">Vehiculo</label>
+          <select
+            class="form-control"
+            id="field_vehiculos"
+            data-cy="vehiculo"
+            multiple
+            name="vehiculos"
+            formControlName="vehiculos"
+            [compareWith]="compareVehiculo"
+          >
+            @for (vehiculoOption of vehiculosSharedCollection; track $index) {
+              <option [ngValue]="vehiculoOption">{{ vehiculoOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

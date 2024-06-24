@@ -1,0 +1,49 @@
+{
+  "annotations": {
+    "changelogDate": "20240509204904"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "dni",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "puesto",
+      "fieldType": "Puesto",
+      "fieldValues": "COMISARIO,INSPECTOR,POLICIA"
+    },
+    {
+      "fieldName": "turno",
+      "fieldType": "Turno",
+      "fieldValues": "MANANA,TARDE,NOCHE"
+    },
+    {
+      "fieldName": "antiguedad",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "Estado",
+      "fieldValues": "ACTIVO,NOACTIVO"
+    }
+  ],
+  "name": "Trabajadores",
+  "relationships": [
+    {
+      "otherEntityName": "calendario",
+      "otherEntityRelationshipName": "trabajadores",
+      "relationshipName": "calendario",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "vehiculo",
+      "otherEntityRelationshipName": "trabajadores",
+      "relationshipName": "vehiculo",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

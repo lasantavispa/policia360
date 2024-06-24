@@ -1,0 +1,154 @@
+<div>
+  <h2 id="page-heading" data-cy="PresosHeading">
+    <span jhiTranslate="policia360App.presos.home.title">Presos</span>
+
+    <div class="d-flex gap-3 justify-content-end">
+      <jhi-filter-resolution (resolutionChange)="filterResolutions($event)"></jhi-filter-resolution>
+
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <!-- <span jhiTranslate="policia360App.presos.home.refreshListLabel">Refresh list</span> -->
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-presos"
+        (click)="openAddPrisoner()"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="policia360App.presos.home.createLabel">Create a new Presos</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (presos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="policia360App.presos.home.notFound">No Presos found</span>
+    </div>
+  }
+
+  @if (presos && presos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nombre">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.presos.nombre">Nombre</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="apellido">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.presos.apellido">Apellido</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="edad">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.presos.edad">Fecha de nacimiento</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="age">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.presos.age">Edad</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dni">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.presos.dni">Dni</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="enfermedades">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.presos.enfermedades">Enfermedades</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="expediente.id">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.presos.expediente">Expediente</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="celda.id">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.presos.celda">Celda</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (presos of presosFiltered || presos; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/presos', presos.id, 'view']">{{ presos.id }}</a>
+              </td>
+              <td>{{ presos.nombre }}</td>
+              <td>{{ presos.apellido }}</td>
+              <td>{{ presos.edad | formatMediumDate }}</td>
+              <td>{{ presos.age }}</td>
+              <td>{{ presos.dni }}</td>
+              <td>{{ presos.enfermedades }}</td>
+              <td>
+                @if (presos.expediente) {
+                  <div>
+                    <a [routerLink]="['/expediente', presos.expediente.id, 'view']">{{ presos.expediente.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (presos.celda) {
+                  <div>
+                    <a [routerLink]="['/celda', presos.celda.id, 'view']">{{ presos.celda.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <!-- <a [routerLink]="['/presos', presos.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a> -->
+
+                  <a (click)="openAddPrisoner()" class="btn btn-edit btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span> -->
+                  </a>
+
+                  <button type="submit" (click)="delete(presos)" class="btn btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="trash-can"></fa-icon>
+                    <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span> -->
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

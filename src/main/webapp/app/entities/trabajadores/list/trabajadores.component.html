@@ -1,0 +1,172 @@
+<div>
+  <h2 id="page-heading" data-cy="TrabajadoresHeading">
+    <span jhiTranslate="policia360App.trabajadores.home.title">Trabajadores</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <!-- <span jhiTranslate="policia360App.trabajadores.home.refreshListLabel">Refresh list</span> -->
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-trabajadores"
+        [routerLink]="['/trabajadores/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="policia360App.trabajadores.home.createLabel">Create a new Trabajadores</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (trabajadores?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="policia360App.trabajadores.home.notFound">No Trabajadores found</span>
+    </div>
+  }
+
+  @if (trabajadores && trabajadores.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="name">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.trabajadores.name">Nombre</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="lastname">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.trabajadores.lastname">Apellido</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col">
+              <div class="d-flex">
+                <span>UserId</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dni">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.trabajadores.dni">Dni</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="puesto">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.trabajadores.puesto">Puesto</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="turno">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.trabajadores.turno">Turno</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="antiguedad">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.trabajadores.antiguedad">Antiguedad</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="estado">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.trabajadores.estado">Estado</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="vehiculo.id">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.trabajadores.vehiculo">Vehiculo</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (trabajadores of trabajadores; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/trabajadores', trabajadores.id, 'view']">{{ trabajadores.id }}</a>
+              </td>
+              <td>
+                {{ trabajadores.user?.firstName }}
+              </td>
+              <td>
+                {{ trabajadores.user?.lastName }}
+              </td>
+              <td>
+                <span>
+                  <a class="form-control-static" [routerLink]="['/admin/user-management', trabajadores.user?.login, 'view']">{{
+                    trabajadores.user?.id
+                  }}</a>
+                </span>
+              </td>
+              <td>{{ trabajadores.dni }}</td>
+              <td [jhiTranslate]="'policia360App.Puesto.' + (trabajadores.puesto ?? 'null')">
+                {{ { null: '', COMISARIO: 'COMISARIO', INSPECTOR: 'INSPECTOR', POLICIA: 'POLICIA' }[trabajadores.puesto ?? 'null'] }}
+              </td>
+              <td [jhiTranslate]="'policia360App.Turno.' + (trabajadores.turno ?? 'null')">
+                {{ { null: '', MANANA: 'MANANA', TARDE: 'TARDE', NOCHE: 'NOCHE' }[trabajadores.turno ?? 'null'] }}
+              </td>
+              <td>{{ trabajadores.antiguedad | formatMediumDate }}</td>
+              <td [jhiTranslate]="'policia360App.Estado.' + (trabajadores.estado ?? 'null')">
+                {{ { null: '', ACTIVO: 'ACTIVO', NOACTIVO: 'NOACTIVO' }[trabajadores.estado ?? 'null'] }}
+              </td>
+              <td>
+                @for (vehiculo of trabajadores.vehiculos; track $index; let last = $last) {
+                  <span>
+                    <a class="form-control-static" [routerLink]="['/vehiculo', vehiculo.id, 'view']">{{ vehiculo.id }}</a
+                    >{{ last ? '' : ', ' }}
+                  </span>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <!-- <a [routerLink]="['/trabajadores', trabajadores.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a> -->
+
+                  <a [routerLink]="['/trabajadores', trabajadores.id, 'edit']" class="btn btn-edit btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span> -->
+                  </a>
+
+                  <button type="submit" (click)="delete(trabajadores)" class="btn btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="trash-can"></fa-icon>
+                    <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span> -->
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

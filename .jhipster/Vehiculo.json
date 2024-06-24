@@ -1,0 +1,32 @@
+{
+  "annotations": {
+    "changelogDate": "20240509204905"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "identificador",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tipovehiculo",
+      "fieldType": "TipoVehiculo",
+      "fieldValues": "AUTOBUS,COCHEPATRULLA,FURGONCELULAR,MOTOCICLETA,UNIDADVIGILANCIA"
+    },
+    {
+      "fieldName": "disponibilidad",
+      "fieldType": "Boolean"
+    }
+  ],
+  "name": "Vehiculo",
+  "relationships": [
+    {
+      "otherEntityName": "trabajadores",
+      "otherEntityRelationshipName": "vehiculo",
+      "relationshipName": "trabajadores",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

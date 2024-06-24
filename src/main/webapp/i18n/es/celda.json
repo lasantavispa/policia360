@@ -1,0 +1,26 @@
+{
+  "policia360App": {
+    "celda": {
+      "home": {
+        "title": "Celdas",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nueva Celda",
+        "createOrEditLabel": "Crear o editar Celda",
+        "notFound": "Ningún Celdas encontrado"
+      },
+      "created": "Un nuevo Celda ha sido creado con el identificador {{ param }}",
+      "updated": "Un Celda ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Celda ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Celda {{ id }}?"
+      },
+      "detail": {
+        "title": "Celda"
+      },
+      "id": "ID",
+      "numeroCamas": "Número Camas",
+      "disponibilidad": "Disponibilidad",
+      "presos": "Presos"
+    }
+  }
+}

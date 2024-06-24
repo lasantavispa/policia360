@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-Policia360App<policia-360>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "policia360.Policia360App",
+      "projectName": "policia-360",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

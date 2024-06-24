@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (presos()) {
+      <div>
+        <h2 data-cy="presosDetailsHeading"><span jhiTranslate="policia360App.presos.detail.title">Presos</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ presos()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.presos.nombre">Nombre</span></dt>
+          <dd>
+            <span>{{ presos()!.nombre }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.presos.apellido">Apellido</span></dt>
+          <dd>
+            <span>{{ presos()!.apellido }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.presos.edad">Edad</span></dt>
+          <dd>
+            <span>{{ presos()!.edad | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.presos.dni">Dni</span></dt>
+          <dd>
+            <span>{{ presos()!.dni }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.presos.enfermedades">Enfermedades</span></dt>
+          <dd>
+            <span>{{ presos()!.enfermedades }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.presos.expediente">Expediente</span></dt>
+          <dd>
+            @if (presos()!.expediente) {
+              <div>
+                <a [routerLink]="['/expediente', presos()!.expediente?.id, 'view']">{{ presos()!.expediente?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="policia360App.presos.celda">Celda</span></dt>
+          <dd>
+            @if (presos()!.celda) {
+              <div>
+                <a [routerLink]="['/celda', presos()!.celda?.id, 'view']">{{ presos()!.celda?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/presos', presos()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

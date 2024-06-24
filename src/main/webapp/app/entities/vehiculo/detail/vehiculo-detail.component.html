@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (vehiculo()) {
+      <div>
+        <h2 data-cy="vehiculoDetailsHeading"><span jhiTranslate="policia360App.vehiculo.detail.title">Vehiculo</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ vehiculo()!.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.vehiculo.identificador">Identificador</span></dt>
+          <dd>
+            <span>{{ vehiculo()!.identificador }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.vehiculo.tipovehiculo">Tipovehiculo</span></dt>
+          <dd>
+            <span [jhiTranslate]="'policia360App.TipoVehiculo.' + (vehiculo()!.tipovehiculo ?? 'null')">{{
+              {
+                null: '',
+                AUTOBUS: 'AUTOBUS',
+                COCHEPATRULLA: 'COCHEPATRULLA',
+                FURGONCELULAR: 'FURGONCELULAR',
+                MOTOCICLETA: 'MOTOCICLETA',
+                UNIDADVIGILANCIA: 'UNIDADVIGILANCIA'
+              }[vehiculo()!.tipovehiculo ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.vehiculo.disponibilidad">Disponibilidad</span></dt>
+          <dd>
+            <span>{{ vehiculo()!.disponibilidad }}</span>
+          </dd>
+          <dt><span jhiTranslate="policia360App.vehiculo.trabajadores">Trabajadores</span></dt>
+          <dd>
+            @for (trabajadores of vehiculo()!.trabajadores; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/trabajadores', trabajadores.id, 'view']">{{ trabajadores?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/vehiculo', vehiculo()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div class="container-main">
+  <h2 id="page-heading" data-cy="CeldaHeading">
+    <span jhiTranslate="policia360App.celda.home.title">Celdas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <!-- <span jhiTranslate="policia360App.celda.home.refreshListLabel">Refresh list</span> -->
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-celda"
+        [routerLink]="['/celda/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="policia360App.celda.home.createLabel">Create a new Celda</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (celdas?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="policia360App.celda.home.notFound">No Celdas found</span>
+    </div>
+  }
+
+  @if (celdas && celdas.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="numeroCamas">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.celda.numeroCamas">Numero Camas</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="disponibilidad">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.celda.disponibilidad">Disponibilidad</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="presos">
+              <div class="d-flex">
+                <span jhiTranslate="policia360App.celda.presos">Presos</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (celda of celdas; track trackId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/celda', celda.id, 'view']">{{ celda.id }}</a>
+              </td>
+              <td [jhiTranslate]="'policia360App.NumeroCamas.' + (celda.numeroCamas ?? 'null')">
+                {{ { null: '', UNO: 'UNO', DOS: 'DOS', TRES: 'TRES', CUATRO: 'CUATRO' }[celda.numeroCamas ?? 'null'] }}
+              </td>
+              <td>{{ celda.disponibilidad }}</td>
+
+              <td>
+                <div *ngFor="let presoId of celda.presos">
+                  <a [routerLink]="['/presos', presoId, 'view']">{{ presoId }}</a>
+                </div>
+              </td>
+
+              <!-- <td>{{ celda.presos?.join(', ') }}</td> -->
+
+              <td class="text-end">
+                <div class="btn-group">
+                  <!-- <a [routerLink]="['/celda', celda.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a> -->
+
+                  <a [routerLink]="['/celda', celda.id, 'edit']" class="btn btn-sm btn-edit" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span> -->
+                  </a>
+
+                  <button type="submit" (click)="delete(celda)" class="btn btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="trash-can"></fa-icon>
+                    <!-- <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span> -->
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

@@ -1,0 +1,137 @@
+<div class="containerbox">
+  <full-calendar class="calendar" [options]="calendarOptions" [events]="eventsPromise | async"></full-calendar>
+
+  <!-- <full-calendar class="calendar" [options]="calendarOptions">
+    <ng-template #eventContent let-arg>
+      <b>{{ arg.event.title }}</b>
+    </ng-template>
+  </full-calendar> -->
+
+  <div class="list">
+    <h2 id="page-heading" data-cy="CalendarioHeading">
+      <span jhiTranslate="policia360App.calendario.home.title">Calendarios</span>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <!-- <span jhiTranslate="policia360App.calendario.home.refreshListLabel">Refresh list</span> -->
+        </button>
+
+        <button
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-calendario"
+          (click)="openAddVancances()"
+          *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MOD']"
+        >
+          <fa-icon icon="plus"></fa-icon>
+          <span jhiTranslate="policia360App.calendario.home.createLabel">Create a new Calendario</span>
+        </button>
+      </div>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    @if (calendarios?.length === 0) {
+      <div class="alert alert-warning" id="no-result">
+        <span jhiTranslate="policia360App.calendario.home.notFound">No Calendarios found</span>
+      </div>
+    }
+
+    @if (calendarios && calendarios.length > 0) {
+      <div class="table-responsive table-entities" id="entities">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+              <th scope="col" jhiSortBy="id">
+                <div class="d-flex">
+                  <span jhiTranslate="global.field.id">ID</span>
+
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+              <th scope="col" jhiSortBy="fechaInicio">
+                <div class="d-flex">
+                  <span jhiTranslate="policia360App.calendario.fechaInicio">Fecha Inicio</span>
+
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+              <th scope="col" jhiSortBy="fechaFin">
+                <div class="d-flex">
+                  <span jhiTranslate="policia360App.calendario.fechaFin">Fecha Fin</span>
+
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+              <th scope="col" jhiSortBy="concepto">
+                <div class="d-flex">
+                  <span jhiTranslate="policia360App.calendario.concepto">Concepto</span>
+
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+              <th scope="col" jhiSortBy="trabajadores.id">
+                <div class="d-flex">
+                  <span jhiTranslate="policia360App.calendario.trabajadores">Trabajadores</span>
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                </div>
+              </th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody class="tbody">
+            @for (calendario of calendarios; track trackId) {
+              <tr data-cy="entityTable" class="entityTable">
+                <td>
+                  <a [routerLink]="['/calendario', calendario.id, 'view']">{{ calendario.id }}</a>
+                </td>
+                <td>{{ calendario.fechaInicio | formatMediumDate }}</td>
+                <td>{{ calendario.fechaFin | formatMediumDate }}</td>
+                <td>{{ calendario.concepto }}</td>
+                <td>
+                  @if (calendario.trabajadores) {
+                    <div>
+                      <a [routerLink]="['/trabajadores', calendario.trabajadores.id, 'view']">{{ calendario.trabajadores.id }}</a>
+                    </div>
+                  }
+                </td>
+                <td class="text-end">
+                  <div class="btn-group">
+                    <!-- <a [routerLink]="['/calendario', calendario.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                      <fa-icon icon="eye"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                    </a> -->
+
+                    <a
+                      [routerLink]="['/calendario', calendario.id, 'edit']"
+                      *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MOD']"
+                      class="btn btn-sm btn-edit"
+                      data-cy="entityEditButton"
+                    >
+                      <fa-icon icon="pencil-alt"></fa-icon>
+                      <span class="d-none d-md-inline"></span>
+                    </a>
+
+                    <button
+                      type="submit"
+                      (click)="delete(calendario)"
+                      class="btn btn-sm"
+                      data-cy="entityDeleteButton"
+                      *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_MOD']"
+                    >
+                      <fa-icon icon="trash-can"></fa-icon>
+                      <span class="d-none d-md-inline"></span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>

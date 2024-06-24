@@ -1,0 +1,142 @@
+<div class="d-flex justify-content-center modalPresos">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-presos-heading" data-cy="PresosCreateUpdateHeading" jhiTranslate="policia360App.presos.home.createOrEditLabel">
+        Create or edit a Presos
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="policia360App.presos.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nombre" jhiTranslate="policia360App.presos.nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_apellido" jhiTranslate="policia360App.presos.apellido">Apellido</label>
+          <input
+            type="text"
+            class="form-control"
+            name="apellido"
+            id="field_apellido"
+            data-cy="apellido"
+            formControlName="apellido"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_edad" jhiTranslate="policia360App.presos.edad">Edad</label>
+          <div class="input-group">
+            <input
+              id="field_edad"
+              data-cy="edad"
+              type="text"
+              class="form-control"
+              name="edad"
+              ngbDatepicker
+              #edadDp="ngbDatepicker"
+              formControlName="edad"
+              required
+            />
+            <button type="button" class="btn btn-secondary" (click)="edadDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div>
+          <div class="mb-3">
+            <label class="form-label" for="field_tipo_documento">Tipo de Documento</label>
+            <select
+              class="form-control"
+              id="field_tipo_documento"
+              formControlName="tipoDocumento"
+              required
+              (change)="onTipoDocumentoChange()"
+            >
+              <option value="DNI">DNI</option>
+              <option value="NIE">NIE</option>
+              <option value="TIE">TIE</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="field_dni" jhiTranslate="policia360App.presos.dni">Número de documento</label>
+            <input type="text" class="form-control" name="dni" id="field_dni" data-cy="dni" formControlName="dni" required />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_enfermedades" jhiTranslate="policia360App.presos.enfermedades">Enfermedades</label>
+          <input
+            type="text"
+            class="form-control"
+            name="enfermedades"
+            id="field_enfermedades"
+            data-cy="enfermedades"
+            formControlName="enfermedades"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_expediente" jhiTranslate="policia360App.presos.expediente">Expediente</label>
+          <select
+            class="form-control"
+            id="field_expediente"
+            data-cy="expediente"
+            name="expediente"
+            formControlName="expediente"
+            [compareWith]="compareExpediente"
+          >
+            <option [ngValue]="null"></option>
+            @for (expedienteOption of expedientesCollection; track $index) {
+              <option [ngValue]="expedienteOption">{{ expedienteOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_celda" jhiTranslate="policia360App.presos.celda">Celda</label>
+          <select
+            class="form-control"
+            id="field_celda"
+            data-cy="celda"
+            name="celda"
+            formControlName="celda"
+            [compareWith]="compareCelda"
+            required
+          >
+            <option [ngValue]="null"></option>
+            @for (celdaOption of celdasSharedCollection; track $index) {
+              <option [ngValue]="celdaOption">{{ celdaOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

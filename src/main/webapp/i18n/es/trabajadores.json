@@ -1,0 +1,33 @@
+{
+  "policia360App": {
+    "trabajadores": {
+      "home": {
+        "title": "Trabajadores",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Trabajadores",
+        "createOrEditLabel": "Crear o editar Trabajadores",
+        "notFound": "Ningún Trabajadores encontrado"
+      },
+      "created": "Un nuevo Trabajadores ha sido creado con el identificador {{ param }}",
+      "updated": "Un Trabajadores ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Trabajadores ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Trabajadores {{ id }}?"
+      },
+      "detail": {
+        "title": "Trabajadores"
+      },
+      "id": "ID",
+      "name": "Nombre",
+      "lastname": "Apellidos",
+      "user": "UserId",
+      "dni": "Dni",
+      "puesto": "Puesto",
+      "turno": "Turno",
+      "antiguedad": "Antigüedad",
+      "estado": "Estado",
+      "calendario": "Calendario",
+      "vehiculo": "Vehiculo"
+    }
+  }
+}

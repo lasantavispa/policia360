@@ -1,0 +1,27 @@
+{
+  "policia360App": {
+    "calendario": {
+      "home": {
+        "title": "Calendarios",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevas vacaciones",
+        "createOrEditLabel": "Crear o editar Calendario",
+        "notFound": "Ningún Calendarios encontrado"
+      },
+      "created": "Un nuevo Calendario ha sido creado con el identificador {{ param }}",
+      "updated": "Un Calendario ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Calendario ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Calendario {{ id }}?"
+      },
+      "detail": {
+        "title": "Calendario"
+      },
+      "id": "ID",
+      "fechaInicio": "Fecha Inicio",
+      "fechaFin": "Fecha Fin",
+      "concepto": "Concepto",
+      "trabajadores": "Trabajadores"
+    }
+  }
+}

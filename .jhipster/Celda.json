@@ -1,0 +1,28 @@
+{
+  "annotations": {
+    "changelogDate": "20240509204901"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "numeroCamas",
+      "fieldType": "NumeroCamas",
+      "fieldValues": "UNO,DOS,TRES,CUATRO"
+    },
+    {
+      "fieldName": "disponibilidad",
+      "fieldType": "Boolean"
+    }
+  ],
+  "name": "Celda",
+  "relationships": [
+    {
+      "otherEntityName": "presos",
+      "otherEntityRelationshipName": "celda",
+      "relationshipName": "presos",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

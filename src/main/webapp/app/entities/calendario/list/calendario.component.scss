@@ -1,0 +1,49 @@
+.containerbox {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  @media (min-width: 1024px) {
+    flex-direction: row-reverse;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: space-between;
+    // justify-content: center;
+  }
+}
+.btn-edit {
+  color: white !important;
+}
+
+.calendar {
+  text-transform: capitalize;
+  color: #3b417b;
+  background-color: whitesmoke;
+  padding: 15px;
+  border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 10px 5px 5px black;
+  @media (min-width: 1024px) {
+    width: 50%;
+    height: 80vh;
+    margin-top: 45px;
+  }
+}
+
+.table-responsive {
+  border-radius: 10px !important;
+  box-shadow: 10px 5px 5px black;
+}
+
+// .table-entities {
+//   border-radius: 10px !important;
+// }
+// .table > tbody {
+//   border-radius: 10px !important;
+// }
+
+// .table-striped {
+//   border-radius: 10px !important;
+// }
+// #entities {
+//   border-radius: 10px !important;
+// }

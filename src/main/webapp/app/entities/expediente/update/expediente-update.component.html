@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-expediente-heading"
+        data-cy="ExpedienteCreateUpdateHeading"
+        jhiTranslate="policia360App.expediente.home.createOrEditLabel"
+      >
+        Create or edit a Expediente
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="policia360App.expediente.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_delito" jhiTranslate="policia360App.expediente.delito">Delito</label>
+          <input type="text" class="form-control" name="delito" id="field_delito" data-cy="delito" formControlName="delito" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fecha" jhiTranslate="policia360App.expediente.fecha">Fecha</label>
+          <div class="input-group">
+            <input
+              id="field_fecha"
+              data-cy="fecha"
+              type="text"
+              class="form-control"
+              name="fecha"
+              ngbDatepicker
+              #fechaDp="ngbDatepicker"
+              formControlName="fecha"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_resolucion" jhiTranslate="policia360App.expediente.resolucion">Resolucion</label>
+          <select class="form-control" name="resolucion" formControlName="resolucion" id="field_resolucion" data-cy="resolucion">
+            <option [ngValue]="null">{{ 'policia360App.Resolucion.null' | translate }}</option>
+            @for (resolucion of resolucionValues; track $index) {
+              <option [value]="resolucion">{{ 'policia360App.Resolucion.' + resolucion | translate }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

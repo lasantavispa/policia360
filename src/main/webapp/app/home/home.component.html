@@ -1,0 +1,109 @@
+<!-- <div class="box">
+  <div class="box_text">
+    <div>
+      @if (account() !== null) {
+        <div class="home">
+          @if (account()) {
+            <h3>Portal Interno de la Comisaría de Policía de García Noblejas</h3>
+            <p>
+              Este portal está diseñado para facilitar la gestión diaria y proporcionar acceso rápido a la información esencial para todos
+              los empleados.
+            </p>
+            <h4>Gestión de Presos</h4>
+            <p>Accede a las herramientas y registros necesarios para la supervisión y manejo de los detenidos.</p>
+            <h4>Vacaciones de Empleados</h4>
+            <p>Consulta y gestiona tus solicitudes de vacaciones y días libres de manera eficiente.</p>
+            <h4>Horarios de Empleados</h4>
+            <p>Revisa y ajusta tus horarios de trabajo. Consulta los turnos y realiza cambios cuando sea necesario.</p>
+            <h4>Horarios de Coches Patrulla</h4>
+            <p>Revisa y organiza los horarios y rutas de los vehículos de patrulla para garantizar una cobertura óptima.</p>
+            <h4>Recursos y Documentos</h4>
+            <p>Encuentra formularios, procedimientos y políticas actualizadas para apoyar tu labor diaria.</p>
+            <h5>Gracias por tu dedicación y esfuerzo en mantener nuestra comunidad segura.</h5>
+          }
+        </div>
+      } @else {
+        <div class="home">
+          <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
+          <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">sign in</a
+          ><span jhiTranslate="global.messages.info.authenticated.suffix"
+            >, you can try the default accounts:<br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;) <br />- User
+            (login=&quot;user&quot; and password=&quot;user&quot;).</span
+          >
+        </div>
+
+        <div class="alert alert-warning">
+          <span jhiTranslate="global.messages.info.register.noaccount">You don&apos;t have an account yet?</span>&nbsp;
+          <a class="alert-link" routerLink="/account/register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="box_img">
+    <h1 class="capitalize">{{ account()!.login }}</h1>
+    <span class="hipster"></span>
+  </div>
+</div> -->
+<div class="box">
+  <div class="box_img">
+    <h1 class="box_img-name">{{ account()!.login }}</h1>
+    <img class="box_img-img" src="../../content/images/placa.webp" alt="placa" />
+  </div>
+  <div class="box_text">
+    @if (account() !== null) {
+      <div class="home">
+        @if (account()) {
+          <h3 class="titleHome">Portal Interno de la Comisaría de Policía del Distrito 032</h3>
+          <p>
+            Este portal está diseñado para facilitar la gestión diaria y proporcionar acceso rápido a la información esencial para todos los
+            empleados.
+          </p>
+          <a routerLink="/admin/user-management" routerLinkActive="active" id="titleHome">
+            <h4>Gestión de Usuarios</h4>
+          </a>
+          <p>Gestión y manejo de usuarios.</p>
+          <a routerLink="/trabajadores" routerLinkActive="active" id="titleHome">
+            <h4>Gestión de Trabajadores</h4>
+          </a>
+          <p>Accede a las herramientas y registros de los trabajadores.</p>
+          <a routerLink="/presos" routerLinkActive="active" id="titleHome">
+            <h4>Gestión de Presos</h4>
+          </a>
+          <p>Accede a las herramientas y registros necesarios para la supervisión y manejo de los detenidos.</p>
+          <a routerLink="/celda" routerLinkActive="active" id="titleHome">
+            <h4>Gestión de Celdas</h4>
+          </a>
+          <p>Consulta y gestiona tus presos en las celdas de manera eficiente.</p>
+          <a routerLink="/expediente" routerLinkActive="active" id="titleHome">
+            <h4>Gestión de Expedientes</h4>
+          </a>
+          <p>Consulta y gestiona los expedientes de los presos.</p>
+          <a routerLink="/vehiculo" routerLinkActive="active" id="titleHome">
+            <h4>Gestión de Vehículos</h4>
+          </a>
+          <p>Consulta y gestiona nuestros vehículos.</p>
+          <a routerLink="/calendario" routerLinkActive="active" id="titleHome">
+            <h4>Calendario</h4>
+          </a>
+          <p>Consulta y gestiona tus horarios y vacaciones.</p>
+          <h5>Gracias por tu dedicación y esfuerzo en mantener nuestra comunidad segura.</h5>
+        }
+      </div>
+    } @else {
+      <div class="home">
+        <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
+        <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">sign in</a
+        ><span jhiTranslate="global.messages.info.authenticated.suffix"
+          >, you can try the default accounts:<br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;) <br />- User
+          (login=&quot;user&quot; and password=&quot;user&quot;).</span
+        >
+      </div>
+
+      <div class="alert alert-warning">
+        <span jhiTranslate="global.messages.info.register.noaccount">You don&apos;t have an account yet?</span>&nbsp;
+        <a class="alert-link" routerLink="/account/register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
+      </div>
+    }
+  </div>
+</div>

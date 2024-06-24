@@ -1,0 +1,12 @@
+{
+  "policia360App": {
+    "TipoVehiculo": {
+      "null": "",
+      "AUTOBUS": "AUTOBUS",
+      "COCHEPATRULLA": "COCHE PATRULLA",
+      "FURGONCELULAR": "FURGON CELULAR",
+      "MOTOCICLETA": "MOTOCICLETA",
+      "UNIDADVIGILANCIA": "UNIDAD VIGILANCIA"
+    }
+  }
+}

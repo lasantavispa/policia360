@@ -1,0 +1,31 @@
+{
+  "policia360App": {
+    "presos": {
+      "home": {
+        "title": "Prisoners",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Prisoners",
+        "createOrEditLabel": "Create or edit a Prisoners",
+        "notFound": "No Prisoners found"
+      },
+      "created": "A new Prisoners is created with identifier {{ param }}",
+      "updated": "A Prisoners is updated with identifier {{ param }}",
+      "deleted": "A Prisoners is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Prisoners {{ id }}?"
+      },
+      "detail": {
+        "title": "Prisoners"
+      },
+      "id": "ID",
+      "nombre": "Name",
+      "apellido": "Lastname",
+      "edad": "Date of Birth",
+      "age": "Age",
+      "dni": "Document number",
+      "enfermedades": "Diseases",
+      "expediente": "Record",
+      "celda": "Cell"
+    }
+  }
+}

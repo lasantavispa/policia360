@@ -1,0 +1,31 @@
+{
+  "annotations": {
+    "changelogDate": "20240509204900"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "fechaInicio",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaFin",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "concepto",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Calendario",
+  "relationships": [
+    {
+      "otherEntityName": "trabajadores",
+      "otherEntityRelationshipName": "calendario",
+      "relationshipName": "trabajadores",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

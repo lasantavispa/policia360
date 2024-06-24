@@ -1,0 +1,11 @@
+id;numero_camas;disponibilidad
+1;CUATRO;false
+2;UNO;true
+3;CUATRO;true
+4;DOS;true
+5;UNO;true
+6;TRES;false
+7;UNO;false
+8;DOS;true
+9;UNO;true
+10;TRES;true
